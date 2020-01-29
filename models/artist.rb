@@ -64,4 +64,14 @@ class Artist
     sql = "DELETE FROM artists"
     SqlRunner.run(sql)
   end
+
+  def self.find(id)
+    sql = "SELECT * FROM artists
+    WHERE
+    id = $1"
+    values = [id]
+    result = SqlRunner.run(sql, values)
+    artist = result.map{|artist| Artist.new(artist)}
+    return artist
+  end
 end
